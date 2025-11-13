@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pro Bot - Smart Cloud Cost Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo"><img src="logo.png" alt="Logo"><span>Smart Cloud Cost Manager</span></div>
+            <nav><a href="index.html">Home</a><a href="#">About Us</a><a href="#">Contact</a></nav>
+        </header>
+        <main>
+            <div class="page-hero"><h1>Pro Bot</h1><p>Your AI Architecture Advisor</p></div>
+            <div class="chat-window">
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message bot-message">
+                        <div class="message-icon"><i data-feather="cpu"></i></div>
+                        <div class="message-content"><p>Welcome! Describe the project you want to build, and I will recommend a cloud architecture for you. For example: "I am building a blog with a database and image storage."</p></div>
+                    </div>
+                </div>
+                <div class="chat-input-form">
+                    <input type="text" id="user-input" placeholder="Describe your project...">
+                    <button class="send-btn" id="send-btn"><i data-feather="send"></i></button>
+                </div>
+            </div>
+            <div class="back-button-container"><a href="bot.html" class="back-button">Back to Bot Options</a></div>
+        </main>
+    </div>
+
+    <script>
+        // This JavaScript is completely unchanged from the previous version.
+        // It correctly calls the /api/pro-bot endpoint.
+        feather.replace();
+        const sendBtn = document.getElementById('send-btn');
+        const userInput = document.getElementById('user-input');
+        const chatMessages = document.getElementById('chat-messages');
+
+        const sendMessage = async () => {
+            const messageText = userInput.value.trim();
+            if (messageText === '') return;
+            addMessage(messageText, 'user');
+            userInput.value = '';
+
+            const response = await fetch('http://127.0.0.1:5000/api/pro-bot', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ message: messageText }),
+            });
+            const data = await response.json();
+            addMessage(data.reply, 'bot');
+        };
+
+        const addMessage = (text, sender) => {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            const iconDiv = document.createElement('div');
+            iconDiv.className = 'message-icon';
+            iconDiv.innerHTML = `<i data-feather="${sender === 'bot' ? 'cpu' : 'user'}"></i>`;
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            contentDiv.innerHTML = `<p>${text.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>`;
+            if (sender === 'user') { messageDiv.appendChild(contentDiv); messageDiv.appendChild(iconDiv); } 
+            else { messageDiv.appendChild(iconDiv); messageDiv.appendChild(contentDiv); }
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            feather.replace();
+        };
+
+        sendBtn.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+    </script>
+</body>
+</html>

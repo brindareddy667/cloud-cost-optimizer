@@ -1,0 +1,11 @@
+Instance_ID,Instance_Type,CPU_Usage_%,Storage_Utilization_%,Hours_Active_per_Day,Monthly_Cost
+VM1,t3.micro,56,24,18,3095
+VM2,t2.micro,65,30,14,4169
+VM3,t2.micro,87,84,18,4135
+VM4,t3.micro,28,12,13,5380
+VM5,t2.large,6,39,13,4433
+VM6,t2.medium,68,69,12,3184
+VM7,t2.medium,80,67,13,4300
+VM8,t2.medium,93,58,18,3082
+VM9,t3.micro,46,69,23,3806
+VM10,t2.micro,66,71,22,5005

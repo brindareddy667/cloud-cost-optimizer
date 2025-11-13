@@ -1,0 +1,630 @@
+/* General Body & Font Styling */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f4f8;
+    color: #334155;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 2rem;
+}
+
+/* Main Container */
+.container {
+    width: 100%;
+    max-width: 1100px;
+    background: linear-gradient(145deg, #eef5fc 0%, #ffffff 100%);
+    border-radius: 24px;
+    box-shadow: 0 20px 50px -10px rgba(0, 50, 150, 0.1);
+    padding: 2rem 3rem;
+    border: 1px solid #ffffff;
+}
+
+/* Header & Navigation */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #1e293b;
+}
+
+.logo img {
+    width: 32px;
+    margin-right: 12px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #475569;
+    font-weight: 500;
+    margin-left: 1.5rem;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+nav a.active, nav a:hover {
+    background-color: #ffffff;
+    color: #0c4a6e;
+    box-shadow: 0 4px 10px rgba(0, 70, 150, 0.08);
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    margin-bottom: 3.5rem;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #0c4a6e;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    color: #64748b;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+.cta-button {
+    background-color: #0ea5e9;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(14, 165, 233, 0.3);
+}
+
+.cta-button:hover {
+    background-color: #0284c7;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.4);
+}
+
+/* Options Grid Layout */
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+/* Individual Option Cards */
+.option-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.option-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px -5px rgba(0, 50, 150, 0.15);
+    border-color: #c7d2fe;
+}
+
+.option-card i {
+    color: #0ea5e9;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1.5rem;
+}
+
+.option-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.option-card p {
+    color: #64748b;
+    line-height: 1.6;
+}
+
+/* Style for the link wrapping the card */
+a.card-link {
+    text-decoration: none;
+}
+
+/* Footer */
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+    font-size: 0.9rem;
+    color: #94a3b8;
+}
+
+.footer-links a {
+    color: #94a3b8;
+    text-decoration: none;
+    margin-left: 1.5rem;
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: #334155;
+}
+
+/* --- STYLES FOR SUB-PAGES --- */
+
+/* Page Hero (for sub-pages) */
+.page-hero {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.page-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0c4a6e;
+    margin-bottom: 0.75rem;
+}
+
+.page-hero p {
+    font-size: 1.1rem;
+    color: #64748b;
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+}
+
+/* Options Grid (2-column version) */
+.options-grid-small {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 750px;
+    margin: 0 auto; /* This centers the grid */
+}
+
+/* Back Button */
+.back-button-container {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.back-button {
+    background-color: #e2e8f0;
+    color: #334155;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.back-button:hover {
+    background-color: #cbd5e1;
+    color: #1e293b;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(100, 116, 139, 0.2);
+}
+
+/* --- STYLES FOR CALCULATOR PAGE --- */
+.calculate-btn {
+    margin-top: 1rem;
+}
+
+.form-container {
+    background-color: #ffffff;
+    padding: 2.5rem;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 50, 150, 0.05);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    color: #475569;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    color: #334155;
+    background-color: #f8fafc;
+    transition: all 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #0ea5e9;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+}
+
+.result-container {
+    display: flex;
+    justify-content: center;
+    margin: 2.5rem 0;
+}
+
+.result-box {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 2rem 2.5rem;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+    width: 100%;
+    max-width: 380px;
+    position: relative;
+    box-shadow: 0 10px 25px -5px rgba(0, 50, 150, 0.1);
+}
+
+.result-box span {
+    font-weight: 600;
+    color: #0ea5e9;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.result-box h2 {
+    font-size: 2.75rem;
+    font-weight: 700;
+    color: #0c4a6e;
+    margin: 0.5rem 0;
+}
+
+.result-box p {
+    color: #64748b;
+    margin: 0;
+}
+
+.result-box i {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    color: #94a3b8;
+    opacity: 0.5;
+}
+
+.calculate-button-container {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #f1f5f9;
+}
+
+/* --- STYLES FOR PREDICTION RESULT/CHART PAGE --- */
+
+.chart-container {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 25px -5px rgba(0, 50, 150, 0.05);
+}
+
+.chart-container h3 {
+    text-align: center;
+    font-weight: 600;
+    color: #1e293b;
+    margin-top: 0;
+    margin-bottom: 2rem;
+}
+
+.chart-main {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.chart-result {
+    flex-shrink: 0;
+    background-color: #f0f9ff;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    width: 250px;
+}
+
+.chart-result span {
+    font-weight: 600;
+    color: #0ea5e9;
+    font-size: 0.9rem;
+}
+
+.chart-result h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #0c4a6e;
+    margin: 0.5rem 0;
+}
+
+.chart-result p {
+    color: #64748b;
+    margin: 0;
+}
+
+.chart-visual {
+    flex-grow: 1;
+    height: 250px;
+}
+
+/* --- STYLES FOR OPTIMIZATION PAGE --- */
+.optimization-results {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.savings-summary {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+    box-shadow: 0 10px 25px -5px rgba(0, 50, 150, 0.05);
+}
+
+.savings-summary h4 {
+    margin-top: 0;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.chart-wrapper {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 1rem auto;
+}
+
+.chart-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.chart-text .total-savings {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0c4a6e;
+    display: block;
+}
+
+.chart-text span {
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.summary-details {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #475569;
+}
+
+.recommendations-table {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 25px -5px rgba(0, 50, 150, 0.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+th {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #64748b;
+    letter-spacing: 0.5px;
+}
+
+td {
+    font-size: 0.95rem;
+    color: #334155;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+td.savings {
+    color: #16a34a; /* Green for savings */
+    font-weight: 600;
+}
+
+/* --- STYLES FOR CHATBOT PAGE --- */
+.chat-window {
+    background-color: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 25px -5px rgba(0, 50, 150, 0.05);
+    display: flex;
+    flex-direction: column;
+    height: 600px; /* Or adjust as needed */
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.message {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+    max-width: 75%;
+}
+
+.message-content {
+    padding: 1rem 1.25rem;
+    border-radius: 18px;
+    line-height: 1.6;
+}
+
+.message-content p {
+    margin: 0;
+}
+
+.message-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #e2e8f0;
+    color: #64748b;
+}
+
+/* Bot Message Specifics */
+.bot-message {
+    align-self: flex-start;
+}
+.bot-message .message-content {
+    background-color: #f1f5f9;
+    color: #334155;
+    border-bottom-left-radius: 4px;
+}
+.bot-message .message-icon {
+    background-color: #e0f2fe;
+    color: #0ea5e9;
+}
+
+/* User Message Specifics */
+.user-message {
+    align-self: flex-end;
+}
+.user-message .message-content {
+    background-color: #0ea5e9;
+    color: #ffffff;
+    border-bottom-right-radius: 4px;
+}
+.user-message .message-icon {
+    order: 1; /* Puts icon to the right */
+}
+
+.chat-input-form {
+    display: flex;
+    padding: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.chat-input-form input {
+    flex-grow: 1;
+    border: none;
+    background-color: transparent;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    color: #334155;
+}
+.chat-input-form input:focus {
+    outline: none;
+}
+
+.send-btn {
+    border: none;
+    background-color: #0ea5e9;
+    color: white;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.send-btn:hover {
+    background-color: #0284c7;
+}
+
+.send-btn i {
+    width: 20px;
+    height: 20px;
+}
+
+/* --- ADD THIS TO THE BOTTOM OF style.css --- */
+.optimization-results-simple {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 2.5rem;
+    border: 1px solid #e2e8f0;
+}
+.suggestions-list h3 {
+    margin-top: 0;
+}
+.suggestions-list ul {
+    list-style-type: '💡';
+    padding-left: 2rem;
+}
+.suggestions-list li {
+    margin-bottom: 1rem;
+    padding-left: 0.75rem;
+    color: #334155;
+    line-height: 1.6;
+}
+.savings-chart-container {
+    margin-top: 3rem;
+}
+.prediction-summary-line {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #0c4a6e;
+    margin-bottom: 2rem;
+}

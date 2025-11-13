@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Bot - Smart Cloud Cost Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header><div class="logo"><img src="logo.png" alt="Logo"><span>Smart Cloud Cost Manager</span></div><nav><a href="index.html">Home</a><a href="#">About Us</a><a href="#">Contact</a></nav></header>
+        <main>
+            <div class="page-hero"><h1>Simple Bot</h1><p>Fill in your requirements to get the top 3 recommendations.</p></div>
+            <div class="form-container bot-form">
+                <div class="form-grid">
+                    <div class="form-group"><label for="service-type">Service Type</label><select id="service-type"><option value="compute">Compute</option><option value="storage">Storage</option><option value="database">Database</option></select></div>
+                    <div class="form-group"><label for="usage" id="usage-label">Monthly Usage (Hours)</label><input type="number" id="usage" placeholder="e.g., 100"></div>
+                    <div class="form-group"><label for="budget">Monthly Budget (₹)</label><input type="number" id="budget" placeholder="e.g., 5000"></div>
+                    <div class="form-group"><label for="priority">Priority</label><select id="priority"><option value="balanced">Balanced</option><option value="cost">Lowest Cost</option><option value="performance">Highest Performance</option></select></div>
+                </div>
+                <div class="calculate-button-container"><button class="cta-button" id="get-recs-btn">Get Recommendations</button></div>
+            </div>
+            <div class="bot-results-container" id="results-display" style="display: none;"><h3>Top Recommendations</h3><div id="results-cards"></div></div>
+            <div class="back-button-container"><a href="bot.html" class="back-button">Back to Bot Options</a></div>
+        </main>
+    </div>
+    <script>
+        const serviceTypeSelect = document.getElementById('service-type');
+        const usageLabel = document.getElementById('usage-label');
+        
+        // --- DYNAMIC LABEL CHANGE ---
+        serviceTypeSelect.addEventListener('change', () => {
+            const selectedValue = serviceTypeSelect.value;
+            if (selectedValue === 'storage') {
+                usageLabel.innerText = 'Monthly Usage (GB)';
+            } else {
+                usageLabel.innerText = 'Monthly Usage (Hours)';
+            }
+        });
+
+        // (The rest of the script for fetching data is unchanged)
+        document.getElementById('get-recs-btn').addEventListener('click', async () => {
+            // ... (rest of script is the same)
+            const dataToSend = { service_type: serviceTypeSelect.value, usage: parseFloat(document.getElementById('usage').value), budget: parseFloat(document.getElementById('budget').value), priority: document.getElementById('priority').value, };
+            const response = await fetch('http://127.0.0.1:5000/api/simple-bot', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(dataToSend) });
+            const result = await response.json();
+            const resultsContainer = document.getElementById('results-cards');
+            resultsContainer.innerHTML = '';
+            if (result.recommendations) {
+                result.recommendations.forEach(rec => {
+                    const card = document.createElement('div');
+                    card.className = 'result-card';
+                    card.innerHTML = `<h4>${rec.provider} - ${rec.service}</h4><p><strong>Cost:</strong> ₹${rec.total_cost.toLocaleString('en-IN', {maximumFractionDigits: 0})}/month</p><p><strong>Performance:</strong> ${rec.performance}/10</p>`;
+                    resultsContainer.appendChild(card);
+                });
+            }
+            document.getElementById('results-display').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cost Optimization - Smart Cloud Cost Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="logo"><img src="logo.png" alt="Logo"><span>Smart Cloud Cost Manager</span></div>
+            <nav><a href="index.html">Home</a><a href="#">About Us</a><a href="#">Contact</a></nav>
+        </header>
+
+        <main>
+            <div class="page-hero">
+                <h1>Cloud Cost Optimization</h1>
+                <p>Find potential savings with simple alternatives</p>
+                <button class="cta-button calculate-btn" id="analyze-btn">Find Savings</button>
+            </div>
+            
+            <div class="optimization-results-simple" id="results-display" style="display: none;">
+                <div class="suggestions-list">
+                    <h3>Recommendations</h3>
+                    <ul id="suggestions-ul">
+                        </ul>
+                </div>
+
+                <div class="savings-chart-container">
+                    <h3>Current vs. Optimized Cost (₹)</h3>
+                    <div class="chart-visual" style="height: 400px;">
+                        <canvas id="savingsBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="back-button-container">
+                 <a href="index.html" class="back-button">Back to Home</a>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.getElementById('analyze-btn').addEventListener('click', async () => {
+            try {
+                const response = await fetch('http://127.0.0.1:5000/api/optimize');
+                const data = await response.json();
+
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+
+                // --- Populate Suggestions List ---
+                const ul = document.getElementById('suggestions-ul');
+                ul.innerHTML = ''; // Clear old suggestions
+                if (data.suggestions.length > 0) {
+                    data.suggestions.forEach(text => {
+                        const li = document.createElement('li');
+                        li.textContent = text;
+                        ul.appendChild(li);
+                    });
+                } else {
+                    const li = document.createElement('li');
+                    li.textContent = "✅ All instances appear well-optimized!";
+                    ul.appendChild(li);
+                }
+
+
+                // --- Create Bar Chart ---
+                const ctx = document.getElementById('savingsBarChart');
+                const labels = data.optimizations.map(item => item.instance_id);
+                const currentCosts = data.optimizations.map(item => item.current_cost);
+                const optimizedCosts = data.optimizations.map(item => item.optimized_cost);
+
+                if (window.mySavingsChart) window.mySavingsChart.destroy();
+                window.mySavingsChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Current Cost',
+                                data: currentCosts,
+                                backgroundColor: '#cbd5e1',
+                            },
+                            {
+                                label: 'Optimized Cost',
+                                data: optimizedCosts,
+                                backgroundColor: '#0ea5e9',
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        scales: { y: { beginAtZero: true, ticks: { callback: (value) => '₹' + value/1000 + 'k' } } }
+                    }
+                });
+
+                document.getElementById('results-display').style.display = 'block';
+
+            } catch (error) {
+                alert('Could not get optimization data. Is the Python server running?');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cost Calculator - Smart Cloud Cost Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo"><img src="logo.png" alt="Logo"><span>Smart Cloud Cost Manager</span></div>
+            <nav><a href="index.html">Home</a><a href="#">About Us</a><a href="#">Contact</a></nav>
+        </header>
+        <main>
+            <div class="page-hero"><h1>Cost Calculator</h1><p>Estimate your cloud expenses based on custom inputs</p></div>
+            <div class="form-container">
+                <div class="form-grid">
+                    <div class="form-group"><label for="vm-count">Number of VMs</label><input type="number" id="vm-count" placeholder="e.g., 5" value="1"></div>
+                    <div class="form-group"><label for="instance-type">Instance Type</label><select id="instance-type"><option value="e2-medium">e2-medium</option><option value="n1-standard-4">n1-standard-4</option><option value="c2-highcpu-8">c2-highcpu-8</option></select></div>
+                    <div class="form-group"><label for="region">Region</label><select id="region"><option value="us-central1" data-currency="USD">us-central1 (USA)</option><option value="asia-south1" data-currency="INR">asia-south1 (Mumbai, India)</option><option value="europe-west3" data-currency="EUR">europe-west3 (Frankfurt, Europe)</option></select></div>
+                    <div class="form-group"><label for="usage-hours">Usage Hours / Month</label><input type="number" id="usage-hours" placeholder="e.g., 730" value="730"></div>
+                </div>
+                <div class="calculate-button-container"><button class="cta-button" id="calculate-btn">Calculate Cost</button></div>
+            </div>
+            <div class="result-container" id="result-display" style="display: none;"><div class="result-box"><span>Result</span><h2 id="result-amount">₹0.00</h2><p>Estimated Monthly Cost</p><i data-feather="bar-chart-2"></i></div></div>
+            <div class="back-button-container"><a href="prediction.html" class="back-button">Back to Prediction Options</a></div>
+        </main>
+    </div>
+    <script>
+        feather.replace();
+        document.getElementById('calculate-btn').addEventListener('click', async () => {
+            const dataToSend = {
+                vm_count: parseFloat(document.getElementById('vm-count').value) || 0,
+                instance_type: document.getElementById('instance-type').value,
+                usage_hours: parseFloat(document.getElementById('usage-hours').value) || 0,
+                currency: document.getElementById('region').options[document.getElementById('region').selectedIndex].getAttribute('data-currency')
+            };
+            const currencySymbol = { 'USD': '$', 'INR': '₹', 'EUR': '€' }[dataToSend.currency];
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/api/calculate', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(dataToSend),
+                });
+                const result = await response.json();
+                
+                // Update the result text every time
+                document.getElementById('result-amount').innerText = currencySymbol + result.cost.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                document.getElementById('result-display').style.display = 'flex';
+            } catch (error) {
+                alert('Could not connect to the server. Is it running?');
+            }
+        });
+    </script>
+</body>
+</html>

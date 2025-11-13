@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next Month Prediction - Smart Cloud Cost Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo"><img src="logo.png" alt="Logo"><span>Smart Cloud Cost Manager</span></div>
+            <nav><a href="index.html">Home</a><a href="#">About Us</a><a href="#">Contact</a></nav>
+        </header>
+        <main>
+            <div class="page-hero">
+                <h1>Next Month Cost Prediction</h1>
+                <p>Based on your historical usage data</p>
+                <button class="cta-button calculate-btn" id="forecast-btn">Generate Forecast</button>
+            </div>
+
+            <div id="prediction-results-container" style="display: none;">
+                <h3 class="prediction-summary-line" id="prediction-summary">Your prediction is ready...</h3>
+                <div class="chart-container">
+                    <div class="chart-visual" style="height: 350px;">
+                        <canvas id="costChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="back-button-container">
+                 <a href="prediction.html" class="back-button">Back to Prediction Options</a>
+            </div>
+        </main>
+    </div>
+    <script>
+        document.getElementById('forecast-btn').addEventListener('click', async () => {
+            try {
+                const response = await fetch('http://127.0.0.1:5000/api/predict');
+                const data = await response.json();
+
+                if(data.error) {
+                    alert(data.error);
+                    return;
+                }
+
+                const formatAsRupee = (amount) => '₹' + amount.toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
+                // Update the summary line
+                const summaryEl = document.getElementById('prediction-summary');
+                summaryEl.innerText = `Your next month's predicted cost is ${formatAsRupee(data.predicted_cost)}.`;
+
+                // Prepare chart data
+                const chartLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul (Forecast)'];
+                const chartData = [...data.past_costs, data.predicted_cost];
+
+                // Draw chart
+                const ctx = document.getElementById('costChart');
+                if (window.myCostChart) window.myCostChart.destroy(); // Clear old chart
+                window.myCostChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: chartLabels,
+                        datasets: [{
+                            label: 'Monthly Cost', data: chartData, borderColor: '#0ea5e9',
+                            backgroundColor: 'rgba(14, 165, 233, 0.1)', tension: 0.4, fill: true,
+                            pointRadius: 5, pointBackgroundColor: '#0ea5e9'
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { y: { ticks: { callback: (value) => formatAsRupee(value) } } }
+                    }
+                });
+
+                document.getElementById('prediction-results-container').style.display = 'block';
+
+            } catch (error) {
+                alert('Could not get prediction data. Is the Python server running?');
+            }
+        });
+    </script>
+</body>
+</html>

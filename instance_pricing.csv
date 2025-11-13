@@ -1,0 +1,10 @@
+instance_type,region_code,cost_per_hour_usd
+e2-medium,us-central1,0.0316
+n1-standard-4,us-central1,0.1900
+c2-highcpu-8,us-central1,0.4158
+e2-medium,asia-south1,0.0380
+n1-standard-4,asia-south1,0.2280
+c2-highcpu-8,asia-south1,0.4980
+e2-medium,europe-west3,0.0350
+n1-standard-4,europe-west3,0.2100
+c2-highcpu-8,europe-west3,0.4500

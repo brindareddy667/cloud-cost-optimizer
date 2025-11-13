@@ -1,0 +1,17 @@
+{
+    "compute": [
+      { "provider": "AWS", "service": "t3.small", "cost_per_hour": 0.2, "performance": 6 },
+      { "provider": "GCP", "service": "e2-medium", "cost_per_hour": 0.15, "performance": 7 },
+      { "provider": "Azure", "service": "B2s", "cost_per_hour": 0.22, "performance": 6 }
+    ],
+    "storage": [
+      { "provider": "AWS", "service": "S3 Standard", "cost_per_gb": 1.5, "performance": 8 },
+      { "provider": "GCP", "service": "Cloud Storage", "cost_per_gb": 1.2, "performance": 9 },
+      { "provider": "Azure", "service": "Blob Storage", "cost_per_gb": 1.6, "performance": 8 }
+    ],
+    "database": [
+      { "provider": "AWS", "service": "RDS (MySQL)", "cost_per_hour": 0.4, "performance": 8 },
+      { "provider": "GCP", "service": "Cloud SQL", "cost_per_hour": 0.35, "performance": 8 },
+      { "provider": "Azure", "service": "Azure SQL", "cost_per_hour": 0.45, "performance": 9 }
+    ]
+  }
