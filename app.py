@@ -7,7 +7,7 @@ from cost_optimizer import get_simple_optimizations
 import bot_logic
 
 # Tells Flask to look for HTML files in the current directory
-app = Flask(__name__, template_folder='.')
+app = Flask(__name__, template_folder='.', static_folder='.')
 CORS(app)
 
 # --- Part 1: Specific Routes for Each HTML Page ---
